@@ -1,4 +1,4 @@
-sot-test
+sot-tests
 ===========
 
 This package contains unitary tests for the sot framework.

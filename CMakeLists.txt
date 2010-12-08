@@ -19,10 +19,10 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
 INCLUDE(cmake/base.cmake)
 INCLUDE(cmake/cpack.cmake)
 
-SET(PROJECT_NAME sot-test)
+SET(PROJECT_NAME sot-tests)
 SET(PROJECT_DESCRIPTION
   "Unitary tests for sot framework.")
-SET(PROJECT_URL "http://github.com/jrl-umi3218/sot-test")
+SET(PROJECT_URL "http://github.com/jrl-umi3218/sot-tests")
 
 SETUP_PROJECT()
 
