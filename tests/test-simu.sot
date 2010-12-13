@@ -1,0 +1,4 @@
+run ../../scripts-sot/left-hand-simu.sot
+for i=1:1000 OpenHRP.inc
+OpenHRP.state
+task.error
