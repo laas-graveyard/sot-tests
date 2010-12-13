@@ -1,20 +1,6 @@
 #! /usr/bin/env python
-
-__author__ = "Duong Dang"
-__version__ = "0.1"
-
-from subprocess import Popen, PIPE
-
-def os_call(cmd):
-    """
-    """
-    p= Popen(cmd, shell = True, stdout = PIPE)
-    stdout, stderror = p.communicate()
-    if stderror :
-        raise Exception(stderror)
-    # logger.debug("os_call: got %s for %s"%(stdout,cmd))
-    return stdout
-
+from basictest import run_test
+import sys
 
 def main():
     cmd = """echo "
@@ -22,7 +8,7 @@ import base
 echo 1 2 3
 " | dg-shell
 """
-    print os_call(cmd)
+    run_test(cmd, sys.argv[1])
 
 if __name__ == '__main__':
     main()
