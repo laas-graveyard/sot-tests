@@ -65,7 +65,7 @@ ELSE()
   MESSAGE(FATAL_ERROR "This platform is not supported.")
 ENDIF()
 
-INSTALL_GENERATED_SOT_SCRIPTS(share/dynamic-graph/script
-  simu
-)
+# INSTALL_GENERATED_SOT_SCRIPTS(share/dynamic-graph/script
+#  simu
+# )
 
