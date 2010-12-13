@@ -1,0 +1,8 @@
+> > > > Class ServerCommand:
+ServerAbstract:
+  - initCorba 			:register the context in the nameservice.
+Entity : 
+  - print			What d'you think?
+  - signals			Display the signals list.
+  - signalDep <signame> 	Display the dependency graph for signal signame.
+> 
