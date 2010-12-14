@@ -145,15 +145,18 @@ sot.addConstraint legs
 sot.push task
 
 # ----------------------------------------------------
-# 6. OPENHRP SIMU  -----------------------------------
+# 6. HRP14    ----------------------------------------
 # ---------------------------------------------------- 
-new RobotSimu OpenHRP
-OpenHRP.resize 36
-OpenHRP.set [36](0,0,0,0,0,0,0,0,-1.04720,2.09440,-1.04720,0,0,0,-1.04720,2.09440,-1.04720,0,0.0000,0,-0,-0,0.17453,-0.17453,-0.17453,-0.87266,0,-0,0.1,0.17453,-0.17453,-0.17453,-0.87266,0,-0,0.1)
-
+sleep 1
+OpenHRP.pause
 plug sot.control OpenHRP.control
 plug OpenHRP.state dyn.position
 plug OpenHRP.state dyn2.position
 plug OpenHRP.attitude posKF.attitudeIN
 plug OpenHRP.attitude flex.sensorWorldRotation
-
+import small
+OpenHRP.reinit from mc
+sleep 1
+OpenHRP.play
+sleep 1
+OpenHRP.play
