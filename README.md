@@ -45,7 +45,7 @@ The following table describes various tests provided in this package
   <td> Test coshell </td>
   <td> cd _build <br> make test </td>
   <td> Passed </td>
-</tr
+</tr>
 
 <tr>
   <td> Simu </td>
@@ -53,7 +53,7 @@ The following table describes various tests provided in this package
   <td> Test left-hand task on robosimu </td>
   <td> cd _build <br> make test </td>
   <td> Passed </td>
-</tr
+</tr>
 
 <tr>
   <td> Simu-viz </td>
@@ -92,7 +92,7 @@ The following table describes various tests provided in this package
     The left foot slides slightly
     since no constraints is imposed on it.
 </td>
-</tr
+</tr>
 
 <tr>
   <td> </td>
