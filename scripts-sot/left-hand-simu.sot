@@ -130,7 +130,7 @@ plug gain.gain task.controlGain
 # 4. CONSTRAINTS  ------------------------------------
 # ----------------------------------------------------
 # Create constraint, create operational point for left-foot, 
-# Add left foot's to constraint's jacobian 
+# Add left foot's Jacobian to created constraint
 dyn.createOpPoint lleg 12
 new Constraint legs
 legs.add dyn.Jlleg
