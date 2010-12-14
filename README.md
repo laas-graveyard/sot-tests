@@ -62,7 +62,7 @@ The following table describes various tests provided in this package
   <td> sot-gui2.py -o <br> dg-shell scripts/left-hand-simu.sot <br>
   click Simulate in sot-gui2.py </td>
   <td> Robot moves its right hand while keeping the right foot in place. </td>
-</tr
+</tr>
 
 <tr>
   <td> SoT-OpenHRP 1</td>
