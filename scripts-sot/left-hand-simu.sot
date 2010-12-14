@@ -1,7 +1,7 @@
 import base
-
+dispmat matlab
 # ----------------------------------------------------
-# --- BASIC DYNAMIC-SMALL     ------------------------
+# 1. BASIC DYNAMIC-SMALL     ------------------------
 # ----------------------------------------------------
 echo Creating the small dynamic
 new DynamicHrp2 dyn
@@ -14,6 +14,7 @@ plug zero.out dyn2.position
 plug zero.out dyn2.velocity
 plug zero.out dyn2.acceleration
 
+# Free-flyer
 new VectorConstant dyn2ffposzero
 dyn2ffposzero.resize 6
 dyn2ffposzero.[] 0 0.0
@@ -25,6 +26,7 @@ dyn2ffposzero.[] 5 0.0
 
 plug dyn2ffposzero.out dyn2.ffposition
 
+# Create various operational point
 dyn2.createOpPoint 0 22
 dyn2.createOpPoint lh 29
 dyn2.createOpPoint rleg 6
@@ -38,11 +40,12 @@ dyn2.setProperty ComputeMomentum               false
 dyn2.setProperty ComputeZMP                    false
 dyn2.setProperty ComputeBackwardDynamics       false
 
+# Motor specific variables
 set dyn.gearRatio [36](0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,207.69,381.54,0,0,219.23,231.25,266.67,250.0,145.45,350.0,0,0,0,0,0,0,0,0)
 set dyn.inertiaRotor [36](0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,69.6e-7,69.6e-7,0,0,69.6e-7,66.0e-7,10.0e-7,66.0e-7,11.0e-7,10.0e-7,0,0,0,0,0,0,0,0)
 
 # ----------------------------------------------------
-# --- FLEX -------------------------------------------
+# 2. FLEX -------------------------------------------
 # ----------------------------------------------------
 # ------- Flex based kinematics
 new AngleEstimator flex
@@ -73,42 +76,49 @@ plug flex.waistWorldPoseRPY dyn.ffposition
 
 
 # ----------------------------------------------------
-# --- TASKS ------------------------------------------
+# 3. TASKS ------------------------------------------
 # ----------------------------------------------------
 
-# LEFT HAND FEATURE
+# 3.1. Create operational point for right hand
 dyn.createOpPoint 0 22
-dyn.createOpPoint lleg 12
 
-new FeaturePoint6d p6
-new FeaturePoint6d p6d
-plug dyn.J0 p6.Jq
-plug dyn.0 p6.position
-set p6.sdes p6d
-
-# Goal position entities & signals
+# 3.2. Goal position (comp) consists of rotation part (matrix eye3) and
+#      translation part (vector t)
 new Compose<R+T> comp
 new MatrixConstant eye3
 new VectorConstant t
 plug eye3.out comp.in1
 plug t.out comp.in2
-plug comp.out p6d.position
 
-# Set goal values
+# 3.3. Set values for eye3 and t
 eye3.resize 3 3
 eye3.eye
 eye3.[] 0 0 0
 eye3.[] 2 2 0
 eye3.[] 0 2 -1
 eye3.[] 2 0 1
-set p6.selec 000111
-p6.frame current
 t.resize 3
 t.[] 0 0.25
 t.[] 1 -0.5
 t.[] 2 .85
 
-# LEFT HAND TASK
+# 3.4. Left hand feature with its signals/components:
+#         - hand position from dynamic (OpPoint 0 cf. 3.1)
+#         - hand jacobian from dynamic (J0 for OpPoint 0)
+#         - goal position plugged to p6d
+new FeaturePoint6d p6
+# only activate the translation part
+set p6.selec 000111
+p6.frame current
+plug dyn.J0 p6.Jq
+plug dyn.0 p6.position
+new FeaturePoint6d p6d
+set p6.sdes p6d
+# set goal position set in 3.3 to goal feature p6d
+plug comp.out p6d.position
+
+# 3.5 Create hand task, add to it feature created in 3.4
+#     Set gain (constant for now)      
 new Task task
 task.add p6
 new GainAdaptive gain
@@ -116,20 +126,27 @@ gain.setConstant .2
 plug task.error gain.error
 plug gain.gain task.controlGain
 
-
-# LEGS CONTRAINTS
+# ----------------------------------------------------
+# 4. CONSTRAINTS  ------------------------------------
+# ----------------------------------------------------
+# Create constraint, create operational point for left-foot, 
+# Add left foot's to constraint's jacobian 
+dyn.createOpPoint lleg 12
 new Constraint legs
 legs.add dyn.Jlleg
 
-# --- SOT
+# ----------------------------------------------------
+# 5. STACK OF TASKS ENTITY----------------------------
+# ----------------------------------------------------
 new SOT sot
 set sot.damping 1e-6
-sot.addConstraint legs
 sot.nbJoints 36
+sot.addConstraint legs
+sot.push task
 
-dispmat matlab
-
-# OpenHRP initialization
+# ----------------------------------------------------
+# 6. OPENHRP SIMU  -----------------------------------
+# ---------------------------------------------------- 
 new RobotSimu OpenHRP
 OpenHRP.resize 36
 OpenHRP.set [36](0,0,0,0,0,0,0,0,-1.04720,2.09440,-1.04720,0,0,0,-1.04720,2.09440,-1.04720,0,0.0000,0,-0,-0,0.17453,-0.17453,-0.17453,-0.87266,0,-0,0.1,0.17453,-0.17453,-0.17453,-0.87266,0,-0,0.1)
@@ -140,5 +157,3 @@ plug OpenHRP.state dyn2.position
 plug OpenHRP.attitude posKF.attitudeIN
 plug OpenHRP.attitude flex.sensorWorldRotation
 
-sleep 1
-sot.push task
