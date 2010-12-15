@@ -59,9 +59,7 @@ def run_script(script,output):
     return run_test(cmd, output)
 
 def main():
-    p = os.path.dirname(os.path.abspath(__file__))
-    return run_script(os.path.join(p,sys.argv[1]),
-             os.path.join(p,sys.argv[2]),)
+    return run_script(sys.argv[1], sys.argv[2])
 
 if __name__ == '__main__':
     sys.exit(main())

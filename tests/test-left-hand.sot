@@ -1,5 +1,0 @@
-run ../../scripts-sot/left-hand.sot
-run ../../scripts-sot/robot-simu.sot
-for i=1:1000 OpenHRP.inc
-OpenHRP.state
-task.error
