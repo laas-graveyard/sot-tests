@@ -63,7 +63,8 @@ The following table describes various tests provided in this package
   <td>
   <ul>
   <li>sot-gui2.py -o
-  <li> dg-shell _build/scripts-sot/left-hand.sot _build/scripts-sot/robot-simu.sot
+  <li> dg-shell scripts-sot/left-hand.sot scripts-sot/robot-simu.sot
+  <li> in dg-shell: import coshell
   <li>click Simulate in sot-gui2.py
   </ul>
   </td>
@@ -95,8 +96,8 @@ The following table describes various tests provided in this package
     <li> Open OpenHRP with HRP2JRLBush.xml
     <li> $OPENHRPHOME/bin/unix/OpenHRPpy _build/scripts-openhrp/sot_minimal.py
     <li> dg-coshell
-    <li> in dg-coshell: _build/scripts-sot/left-hand.sot
-    <li> in dg-coshell: _build/scripts-sot/robot-openhrp.sot
+    <li> in dg-coshell: scripts-sot/left-hand.sot
+    <li> in dg-coshell: scripts-sot/robot-openhrp.sot
     </ul>
   </td>
   <td width="200"> HRP2 moves its right hand while keeping
