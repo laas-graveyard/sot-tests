@@ -23,29 +23,25 @@ def run_test(cmd, output):
     - `output`:
     """
     res = os_call(cmd)
-    print res
     expected_res = open(output).read()
-    if res != expected_res:
-        return 1
-    else:
+    print res
+    if res == expected_res or res + "\n" == expected_res:
         return 0
+    else:
+        return 1
 
 def run_script(script,output):
-    print script
     script_str = open(script).read()
-    print script_str
     cmd = """echo "
 %s
 " | dg-shell
 """%script_str
-    run_test(cmd, output)
+    return run_test(cmd, output)
 
 def main():
     p = os.path.dirname(os.path.abspath(__file__))
-    print (os.path.join(p,sys.argv[1]),
-             os.path.join(p,sys.argv[2]),)
-    run_script(os.path.join(p,sys.argv[1]),
+    return run_script(os.path.join(p,sys.argv[1]),
              os.path.join(p,sys.argv[2]),)
 
 if __name__ == '__main__':
-    main()
+    sys.exit(main())
