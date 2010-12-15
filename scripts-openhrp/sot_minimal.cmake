@@ -1,5 +1,5 @@
 import sys
-sys.path.append('/local/nddang/profiles/sot2/install/stable/OpenHRP/Controller/IOserver/robot/HRP2JRL/script')
+sys.path.append('@HRP2_SCRIPT_DIR@')
 import time
 import hrp
 import hstsetup
