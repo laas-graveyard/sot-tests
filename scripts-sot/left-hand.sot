@@ -126,12 +126,24 @@ gain.setConstant .2
 plug task.error gain.error
 plug gain.gain task.controlGain
 
+# 3.6 Two feet task
+dyn.createOpPoint rleg 6
+dyn.createOpPoint lleg 12
+new FeaturePoint6dRelative featureTwofeet
+plug dyn.Jrleg  featureTwofeet.Jq
+plug dyn.Jlleg  featureTwofeet.JqRef
+plug dyn.rleg  featureTwofeet.position
+plug dyn.lleg  featureTwofeet.positionRef
+
+new Task taskTwofeet
+taskTwofeet.add featureTwofeet
+set taskTwofeet.controlGain 0
+
 # ----------------------------------------------------
 # 4. CONSTRAINTS  ------------------------------------
 # ----------------------------------------------------
 # Create constraint, create operational point for left-foot, 
 # Add left foot's Jacobian to created constraint
-dyn.createOpPoint lleg 12
 new Constraint legs
 legs.add dyn.Jlleg
 
@@ -141,5 +153,6 @@ legs.add dyn.Jlleg
 new SOT sot
 set sot.damping 1e-6
 sot.nbJoints 36
-sot.addConstraint legs
+# sot.addConstraint legs
+sot.push taskTwofeet
 sot.push task

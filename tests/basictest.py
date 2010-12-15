@@ -3,7 +3,23 @@ __author__ = "Duong Dang"
 __version__ = "0.1"
 
 from subprocess import Popen, PIPE
-import sys, os
+import sys, os, time, re
+
+re_num = re.compile(r"([-+]?(\d+(\.\d*)|\.\d+)([eE][-+]?\d+))")
+
+def remove_numerical_zero(s, precison = 1e-10):
+    matches = re_num.findall(s)
+    zeros = []
+    for match in matches:
+        match = match[0]
+        try:
+            f = abs(float(match))
+            if f < precison:
+                zeros.append(match)
+                s = s.replace(match, "0")
+        except:
+            continue
+    return s
 
 def os_call(cmd):
     """
@@ -22,10 +38,14 @@ def run_test(cmd, output):
     - `cmd`:
     - `output`:
     """
-    res = os_call(cmd)
-    expected_res = open(output).read()
+    res = os_call(cmd).strip()
+    expected_res = open(output).read().strip()
+
+    res = remove_numerical_zero(res)
+    expected_res = remove_numerical_zero(expected_res)
+    # print """"%s"\n"%s" """%(res,expected_res)
     print res
-    if res == expected_res or res + "\n" == expected_res:
+    if res == expected_res:
         return 0
     else:
         return 1
