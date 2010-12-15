@@ -48,7 +48,7 @@ The following table describes various tests provided in this package
 </tr>
 
 <tr>
-  <td> Simu </td>
+  <td> Lefthand </td>
   <td> YES </td>
   <td> Test left-hand task on robosimu </td>
   <td> <ul> <li>cd _build <li> make test </ul> </td>
@@ -56,28 +56,28 @@ The following table describes various tests provided in this package
 </tr>
 
 <tr>
-  <td> Simu-viz </td>
+  <td> Lefthand-viz </td>
   <td> NO </td>
   <td>
    Test left-hand task on robosimu with vizualization</td>
   <td>
   <ul>
   <li>sot-gui2.py -o
-  <li> dg-shell scripts/left-hand-simu.sot
+  <li> dg-shell _build/scripts-sot/left-hand.sot _build/scripts-sot/robot-simu.sot
   <li>click Simulate in sot-gui2.py
   </ul>
   </td>
-  <td> Robot moves its right hand while keeping the right foot in place. </td>
+  <td> Robot moves its right hand while keeping both feet in place. </td>
 </tr>
 
 <tr>
   <td> SoT-OpenHRP 1</td>
   <td> NO </td>
   <td> Test SoT entity in OpenHRP</td>
-  <td>
+  <td width="200">
     <ul>
     <li>Open OpenHRP with HRP2JRLBush.xml
-    <li>  $OPENHRPHOME/bin/unix/OpenHRPpy scripts-openhrp/sot_minimal.py
+    <li>  $OPENHRPHOME/bin/unix/OpenHRPpy _build/scripts-openhrp/sot_minimal.py
     <li> Open sot-gui2.py, click Refresh.
     </ul>
   </td>
@@ -93,15 +93,14 @@ The following table describes various tests provided in this package
   <td>
     <ul>
     <li> Open OpenHRP with HRP2JRLBush.xml
-    <li> $OPENHRPHOME/bin/unix/OpenHRPpy scripts-openhrp/sot_minimal.py
+    <li> $OPENHRPHOME/bin/unix/OpenHRPpy _build/scripts-openhrp/sot_minimal.py
     <li> dg-coshell
-    <li> in dg-coshell: $SOT-TESTS-ROOT/scripts-sot/left-hand-hrp2_14.sot
+    <li> in dg-coshell: _build/scripts-sot/left-hand.sot
+    <li> in dg-coshell: _build/scripts-sot/robot-openhrp.sot
     </ul>
   </td>
   <td width="200"> HRP2 moves its right hand while keeping
-    the right foot in  place. <br>
-    The left foot slides slightly
-    since no constraints is imposed on it.
+    the both feet in  place.
 </td>
 </tr>
 
