@@ -46,6 +46,20 @@ SoT.sendMsg(":init")
 SoT.sendMsg(":script OpenHRP.refstate mc")
 SoT.sendMsg(":script import base")
 SoT.sendMsg(":script import coshell")
+SoT.sendMsg(":script OpenHRP.pause")
 SoT.start()
-print "Fished initialized, sleeping 600s"
-time.sleep(600)
+
+def start_manips():
+    SoT.sendMsg(":script OpenHRP.reinit from mc")
+    SoT.sendMsg(":script sleep 1")
+    SoT.sendMsg(":script OpenHRP.play")
+
+
+menu_list =  [[
+        "Empty sot created.", '#label',
+        "Populate dynamic-graph in coshell",'#label',
+        "before proceding",'#label',
+        'Start Manipulation',           'start_manips()',
+        ]]
+
+waitInputMenu(menu_list)

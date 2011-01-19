@@ -69,3 +69,6 @@ ENDIF()
 #  simu
 # )
 
+CONFIGURE_FILE(walk.sot ${CMAKE_CURRENT_BINARY_DIR}/walk.sot)
+CONFIGURE_FILE(create-robot-simu.sot ${CMAKE_CURRENT_BINARY_DIR}/create-robot-simu.sot)
+CONFIGURE_FILE(left-hand.sot ${CMAKE_CURRENT_BINARY_DIR}/left-hand.sot)
