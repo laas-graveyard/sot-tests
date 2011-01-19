@@ -2,13 +2,7 @@
 # ----------------------------------------------------
 # HRP14    ----------------------------------------
 # ---------------------------------------------------- 
-sleep 1
-OpenHRP.pause
-plug sot.control OpenHRP.control
-plug OpenHRP.state dyn.position
-plug OpenHRP.state dyn2.position
-plug OpenHRP.attitude posKF.attitudeIN
-plug OpenHRP.attitude flex.sensorWorldRotation
+
 import small
 OpenHRP.reinit from mc
 sleep 1
